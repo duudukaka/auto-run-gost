@@ -1,11 +1,16 @@
 #!/bin/sh
-sudo su
+if [ "$(id -nu)" != "root" ]; then
+    sudo -k
+    pass=$(whiptail --backtitle "$brand Installer" --title "需要管理员权限！" --passwordbox "启用此脚本需要管理员权限！\n\n[sudo] 您的账户 $USER: 的密码" 12 50 3>&2 2>&1 1>&3-)
+    exec sudo -S -p '' "$0" "$@" <<< "$pass"
+    exit 1
+fi
 yum update -y&&yum install gunzip wget axel -y
 apt update -y&&apt install gunzip wget axel -y
 gostfile="/bin/gost"
 mkdir -p /home/gost
 cd /tmp/
-gost
+gost >/dev/null
 if [ $? -eq 0 ]; then
    echo 'gost installed!'
 elif [ ! -a "$gostfile" ]; then
