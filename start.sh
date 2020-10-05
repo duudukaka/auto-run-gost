@@ -1,4 +1,13 @@
 #!/bin/sh
+yum update -y&&yum install gunzip wget axel -y
+apt update -y&&apt install gunzip wget axel -y
+
+mkdir -p /home/gost
+cd /tmp/
+axel -k https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz -o /tmp/gost.gz
+gunzip /tmp/gost.gz
+chmod 755 gost-linux-amd64
+mv gost-linux-amd64 /bin/gost
 cat > /lib/systemd/system/gost-serv.service <<EOF
 [Unit]
 Description=gost
