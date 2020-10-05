@@ -8,6 +8,7 @@ fi
 yum update -y&&yum install gunzip wget axel -y
 apt update -y&&apt install gunzip wget axel -y
 gostfile="/bin/gost"
+servfile="/lib/systemd/system/gost-serv.service"
 mkdir -p /home/gost
 cd /tmp/
 gost >/dev/null 2>&1
@@ -20,6 +21,8 @@ chmod 755 gost-linux-amd64
 mv gost-linux-amd64 /bin/gost
  fi
 
+
+if [ ! -a "$servfile" ]; then
 cat > /lib/systemd/system/gost-serv.service <<EOF
 [Unit]
 Description=gost
@@ -32,5 +35,7 @@ ExecStart=/usr/bin/nohup bash /home/gost/*.sh >/dev/null 2>&1 &
 [Install]
 WantedBy=multi-user.target
 EOF
+ fi
+
 systemctl daemon-reload
 systemctl enable gost-serv.service
