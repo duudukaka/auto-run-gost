@@ -10,7 +10,7 @@ apt update -y&&apt install gunzip wget axel -y
 gostfile="/bin/gost"
 mkdir -p /home/gost
 cd /tmp/
-gost >/dev/null
+gost >/dev/null 2>&1
 if [ $? -eq 0 ]; then
    echo 'gost installed!'
 elif [ ! -a "$gostfile" ]; then
