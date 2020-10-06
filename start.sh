@@ -15,7 +15,7 @@ gost >/dev/null 2>&1
 if [ $? -eq 0 ]; then
    echo 'gost installed!'
 elif [ ! -a "$gostfile" ]; then
- axel -k https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz -o /tmp/gost.gz
+ wget --no-check-certificate https://github.com/ginuerzh/gost/releases/download/v2.11.1/gost-linux-amd64-2.11.1.gz -O /tmp/gost.gz
 gunzip /tmp/gost.gz
 chmod 755 gost-linux-amd64
 mv gost-linux-amd64 /bin/gost
