@@ -1,5 +1,5 @@
 #!/bin/sh
-if [ "$(id -nu)" != "root" ]; then
+if [[ "$(id -nu)" != "root" ]]; then
     sudo -k
     pass=$(whiptail --backtitle "$brand Installer" --title "需要管理员权限！" --passwordbox "启用此脚本需要管理员权限！\n\n[sudo] 您的账户 $USER: 的密码" 12 50 3>&2 2>&1 1>&3-)
     exec sudo -S -p '' "$0" "$@" <<< "$pass"
@@ -42,9 +42,9 @@ EOF
 
 systemctl daemon-reload
 systemctl enable gost-serv.service
-if [ $findgostcron = "" ];then
+if [[ $findgostcron = "" ]];then
 (echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab
-elif [ $findgostcron = "0098245565765757575754" ];then 
+elif [[ $findgostcron = "0098245565765757575754" ]];then 
 echo "Crontab may not available"
 echo "Plz Chk"
 exit 1
