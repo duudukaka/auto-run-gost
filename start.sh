@@ -8,7 +8,7 @@ fi
 yum update -y&&yum install gunzip wget axel -y
 apt update -y&&apt install gunzip wget axel -y
 findgostcron="0098245565765757575754"
-findgostcron=$(crontab -l|grep systemctl|start|gost-serv)
+findgostcron=$(crontab -l|grep systemctl|grep start|gost-serv)
 gostfile="/bin/gost"
 servfile="/lib/systemd/system/gost-serv.service"
 mkdir -p /home/gost
