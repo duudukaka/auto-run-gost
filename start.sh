@@ -45,7 +45,8 @@ systemctl enable gost-serv.service
 if [[ $findgostcron = "" ]];then
 (echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab
  if [ $? -eq 0 ]; then
-(echo "*/1 * * * * systemctl start gost-serv.service")| crontabfi
+(echo "*/1 * * * * systemctl start gost-serv.service")| crontab
+fi
 elif [[ $findgostcron = "0098245565765757575754" ]];then 
 echo "Crontab may not available"
 echo "Plz Chk"
