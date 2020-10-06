@@ -40,9 +40,4 @@ EOF
 
 systemctl daemon-reload
 systemctl enable gost-serv.service
-if [ ((echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab)  ];then
-exit 0
-elif [[ $? -nq 0 ]];then 
-(echo "*/1 * * * * systemctl start gost-serv.service")| crontab
-exit 1
-fi
+((echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab)
