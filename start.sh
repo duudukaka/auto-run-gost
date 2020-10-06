@@ -7,8 +7,6 @@ if [[ "$(id -nu)" != "root" ]]; then
 fi
 yum update -y&&yum install gunzip wget axel -y
 apt update -y&&apt install gunzip wget axel -y
-findgostcron="0098245565765757575754"
-findgostcron=$(crontab -l|grep systemctl|grep start|grep gost-serv)
 gostfile="/bin/gost"
 servfile="/lib/systemd/system/gost-serv.service"
 mkdir -p /home/gost
@@ -42,13 +40,9 @@ EOF
 
 systemctl daemon-reload
 systemctl enable gost-serv.service
-if [[ $findgostcron = "" ]];then
-(echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab
- if [ $? -eq 0 ]; then
+if [ ((echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab)  ];then
+exit 0
+elif [[ $? -nq 0 ]];then 
 (echo "*/1 * * * * systemctl start gost-serv.service")| crontab
-fi
-elif [[ $findgostcron = "0098245565765757575754" ]];then 
-echo "Crontab may not available"
-echo "Plz Chk"
 exit 1
 fi
