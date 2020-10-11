@@ -10,6 +10,7 @@ apt update -y&&apt install gunzip wget axel -y
 gostfile="/bin/gost"
 servfile="/lib/systemd/system/gost-serv.service"
 mkdir -p /home/gost
+touch /home/gost/1.sh
 cd /tmp/
 gost >/dev/null 2>&1
 if [ $? -eq 0 ]; then
@@ -32,6 +33,7 @@ Wants=network-online.target
 
 [Service]
 ExecStart=/usr/bin/nohup /bin/bash /home/gost/*.sh >/dev/null 2>&1 &
+ExecRestart=/usr/bin/nohup /bin/bash /home/gost/*.sh >/dev/null 2>&1 &
 LimitNOFILE=100000
 Restart=always
 RestartSec=60
