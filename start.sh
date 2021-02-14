@@ -46,4 +46,4 @@ EOF
 
 systemctl daemon-reload
 systemctl enable gost-serv.service
-((echo "*/1 * * * * systemctl start gost-serv.service" ; crontab -l)| crontab)
+((echo "@reboot  bash /home/gost/1.sh" ; crontab -l)| crontab)
